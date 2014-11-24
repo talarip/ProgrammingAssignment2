@@ -43,14 +43,26 @@ makeCacheMatrix <- function(a = matrix()) {
 # computation. If not, it computes the inverse, sets the value in the cache via
 # set_inverse function.
 
-cacheSolve <- function(x, ...) {
-  inv <- x$get_inverse()
+cacheSolve <- function(a, ...) {
+  inv <- a$get_inverse()
   if(!is.null(inv)) {
     message("getting cached data.")
     return(inv)
   }
-  data <- x$get()
+  data <- a$get()
   inv <- solve(data)
-  x$set_inverse(inv)
+  a$set_inverse(inv)
   inv
 }
+
+
+# # Testing
+# #Create Cache matrix
+# a = rbind(c(1, -2), c(-2, 1))
+# m = makeCacheMatrix(a)
+# m$get()
+# 
+# #No cache
+# cacheSolve(m)
+# #Cached
+# cacheSolve(m)
